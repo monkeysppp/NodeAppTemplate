@@ -1,0 +1,102 @@
+html
+{
+  border:   0px;
+}
+
+body
+{
+  margin:   0px;
+  padding:  10px;
+  border:   0px;
+  font-family: Helvetica, Verdana, Arial Narrow;
+  font-size: medium;
+}
+
+div.seasonbox
+{
+  margin:   10px;
+  padding:  5px;
+  border:   1px solid #7171f4;
+  background-color: #f1f1fe;
+  border-radius: 5px;
+}
+
+div.competitionbox
+{
+  margin:   10px;
+  padding:  5px;
+  border:   1px solid #f27f59;
+  background-color: #fef4f1;
+  border-radius: 5px;
+}
+
+div.teambox
+{
+  margin:   10px;
+  padding:  5px;
+  border:   1px solid #d072f3;
+  background-color: #fbf1fe;
+  border-radius: 5px;
+}
+
+div.contactbox
+{
+  margin:   10px;
+  padding:  5px;
+  border:   1px solid #60ec8d;
+  background-color: #f4fff4;
+  border-radius: 5px;
+}
+
+div.errorbox
+{
+  margin:   10px;
+  padding:  10px;
+  border:   1px solid #ff0000;
+  background-color: #ffcccc;
+  border-radius: 5px;
+}
+
+div.deletebox
+{
+  margin-left:   5px;
+  margin-right:   5px;
+  padding:  0px;
+  border:   1px solid #ff0000;
+  background-color: #ffcccc;
+  border-radius: 15px;
+  display: inline-block;
+  float: right;
+}
+
+.deletebox
+{
+  color: #ff0000;
+}
+
+div.addbox
+{
+  margin-left:   5px;
+  margin-right:   5px;
+  padding:  0px;
+  border:   1px solid #60ec8d;
+  background-color: #f4fff4;
+  border-radius: 15px;
+  display: inline-block;
+}
+
+.addbox
+{
+  color: #60ec8d;
+  font-size: large;
+}
+
+.addtext
+{
+  margin:   10px;
+}
+
+p
+{
+  margin: 0px;
+}
