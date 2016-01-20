@@ -42,21 +42,35 @@ function storePassword(dbConnection, username, hash) {
     }
   });
 
-  var post  = {
-    username: username,
-    identity: hash,
-    apiKey: uuid(),
-  };
+  dbConnection.query('CREATE TABLE IF NOT EXISTS `users` ' +
+    '(`username` varchar(100) NOT NULL, ' +
+    '`identity` varchar(280) NOT NULL, ' +
+    '`apiKey` varchar(100) NOT NULL)', function(err, result) {
 
-  connection.query('INSERT INTO users SET ?', post, function(err, result) {
-    if (err) {
-      console.log('Failed to add user to DB...');
-      console.log(err);
-      process.exit(1);
+      if (err) {
+        console.log('Failed to create table in DB...');
+        console.log(err);
+        process.exit(1);
+      }
+
+      var post  = {
+        username: username,
+        identity: hash,
+        apiKey: uuid(),
+      };
+
+      dbConnection.query('INSERT INTO users SET ?', post, function(err, result) {
+        if (err) {
+          console.log('Failed to add user to DB...');
+          console.log(err);
+          process.exit(1);
+        }
+
+        console.log('Password set for user ' + username);
+        dbConnection.end();
+      });
     }
-  });
-
-  connection.destroy();
+  );
 }
 
 function usage() {
@@ -120,8 +134,6 @@ function main() {
 
       var dbConnection = createDBConnection(databaseName, databaseUser, databasePwd);
       saltHashAndStore(dbConnection, username, pwd);
-      console.log('Password set for user ' + username);
-
     }
   );
 }
