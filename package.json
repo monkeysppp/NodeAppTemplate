@@ -15,6 +15,7 @@
     "mysql": "latest",
     "password-hash-and-salt": "latest",
     "prompt": "latest",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "uuid4": "^1.0.0"
   }
 }

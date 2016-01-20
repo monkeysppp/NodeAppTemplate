@@ -7,6 +7,7 @@ var mysql = require('mysql');
 var password = require('password-hash-and-salt');
 var readline = require('readline');
 var prompt = require('prompt');
+var uuid = require('uuid4');
 
 prompt.message = '';
 prompt.delimiter = '';
@@ -21,7 +22,7 @@ function createDBConnection(databaseName, databaseUser, databasePassword) {
 }
 
 function saltHashAndStore(dbConnection, username, pwd) {
-  password('mysecret').hash(function(err, hash) {
+  password(pwd).hash(function(err, hash) {
     if (err) {
       console.log('Error processing password...');
       console.log(err);
@@ -41,11 +42,13 @@ function storePassword(dbConnection, username, hash) {
     }
   });
 
-  var post  = {username: username, identity: hash};
+  var post  = {
+    username: username,
+    identity: hash,
+    apiKey: uuid(),
+  };
 
-  // TODO - get table name?  Based on app name?
-  // TODO - create table for the app?
-  connection.query('INSERT INTO tablename SET ?', post, function(err, result) {
+  connection.query('INSERT INTO users SET ?', post, function(err, result) {
     if (err) {
       console.log('Failed to add user to DB...');
       console.log(err);
@@ -59,7 +62,7 @@ function storePassword(dbConnection, username, hash) {
 function usage() {
   console.log('');
   console.log('Usage:');
-  console.log('  node addUser.js [database_name] [database_user] [username]');
+  console.log('  node addUser.js [databaseName] [databaseUser] [username]');
   console.log('');
 }
 
