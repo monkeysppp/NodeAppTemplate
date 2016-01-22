@@ -1,2 +1,3 @@
 cert/*
+!cert/README.md
 node_modules
