@@ -8,95 +8,62 @@ body
   margin:   0px;
   padding:  10px;
   border:   0px;
-  font-family: Helvetica, Verdana, Arial Narrow;
+  font-family: Helvetica, Verdana, Arial Narrow, sans-serif;
   font-size: medium;
+  color: #4b4b4b;
 }
 
-div.seasonbox
+div.center
 {
+  text-align: center;
+}
+
+div.login
+{
+  display: inline-block;
   margin:   10px;
-  padding:  5px;
+  margin-top: 50px;
+  padding:  15px;
   border:   1px solid #7171f4;
   background-color: #f1f1fe;
   border-radius: 5px;
 }
 
-div.competitionbox
+.loginButton
 {
-  margin:   10px;
-  padding:  5px;
-  border:   1px solid #f27f59;
-  background-color: #fef4f1;
+  background-color: #3e4695;
+  border: 0px;
   border-radius: 5px;
+  color: #dddddd;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 100%;
+  padding-top:    3px;
+  padding-bottom: 3px;
+  padding-left:   10px;
+  padding-right:  10px;
+  text-align: center;
 }
 
-div.teambox
-{
-  margin:   10px;
-  padding:  5px;
-  border:   1px solid #d072f3;
-  background-color: #fbf1fe;
-  border-radius: 5px;
-}
-
-div.contactbox
-{
-  margin:   10px;
-  padding:  5px;
-  border:   1px solid #60ec8d;
-  background-color: #f4fff4;
-  border-radius: 5px;
-}
-
-div.errorbox
+.entryBlock
 {
   margin:   10px;
   padding:  10px;
-  border:   1px solid #ff0000;
-  background-color: #ffcccc;
-  border-radius: 5px;
+  display: block;
 }
 
-div.deletebox
+.entryField
 {
-  margin-left:   5px;
-  margin-right:   5px;
-  padding:  0px;
-  border:   1px solid #ff0000;
-  background-color: #ffcccc;
-  border-radius: 15px;
-  display: inline-block;
-  float: right;
-}
-
-.deletebox
-{
-  color: #ff0000;
-}
-
-div.addbox
-{
-  margin-left:   5px;
-  margin-right:   5px;
-  padding:  0px;
-  border:   1px solid #60ec8d;
-  background-color: #f4fff4;
-  border-radius: 15px;
+  padding-left:   5px;
+  padding-right:  5px;
   display: inline-block;
 }
 
-.addbox
+.loginCredentials
 {
-  color: #60ec8d;
-  font-size: large;
-}
-
-.addtext
-{
-  margin:   10px;
-}
-
-p
-{
-  margin: 0px;
+  background-color: #f7f7f7;
+  border: 1px solid #9b9b9b;
+  border-radius: 3px;
+  color: #4b4b4b;
+  padding: 5px;
 }
