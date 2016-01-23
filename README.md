@@ -10,10 +10,18 @@ Users are stored in a MySQL database (on the server) in a table called 'users' (
 node ./bin/addUser.js [databaseName] [databaseUser] [username]
 ```
 
+### Installing the code
+To install the code, run:
+
+```
+npm install
+```
+
+Then make sure you have a public/private key pair.
+
 ### Running the server
 To run the server, follow these simple steps:
 
 ```
-npm install
-node .
+npm start
 ```

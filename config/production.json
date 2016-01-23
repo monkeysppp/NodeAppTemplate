@@ -2,5 +2,7 @@
   "title":"AppTemplate",
   "logging": {
     "level":"info"
-  }
+  },
+  "httpPort":3000,
+  "httpsPort":3001
 }
