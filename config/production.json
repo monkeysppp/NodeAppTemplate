@@ -4,5 +4,6 @@
     "level":"info"
   },
   "httpPort":3000,
-  "httpsPort":3001
+  "httpsPort":3001,
+  "dbName":"node"
 }

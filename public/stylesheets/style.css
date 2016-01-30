@@ -1,69 +1,180 @@
-html
-{
-  border:   0px;
+@media only screen and (min-device-width: 641px) {
+  html {
+    border: 0px;
+    height: 100%;
+  }
+
+  body {
+    height: 100%;
+    margin:   0px;
+    padding:  0px;
+    border:   0px;
+    font-family: Helvetica, Verdana, Arial Narrow, sans-serif;
+    font-size: large;
+    color: #4b4b4b;
+  }
+
+  div.loginback {
+    height: 100%;
+    background-color: #345678;
+  }
+
+  div.loginwrap {
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  div.login {
+    display: inline-block;
+    margin:   10px;
+    padding:  15px;
+    border:   5px solid #6789AB;
+    background-color: #f1f1fe;
+    border-radius: 10px;
+  }
+
+  .loginButton {
+    background-color: #345678;
+    border: 0px;
+    border-radius: 5px;
+    color: #dddddd;
+    cursor: pointer;
+    display: inline-block;
+    font-size: x-large;
+    padding-top:    5px;
+    padding-bottom: 5px;
+    padding-left:   17px;
+    padding-right:  17px;
+    text-align: center;
+  }
+
+  .headingBlock {
+    margin:   10px;
+    padding:  20px;
+    display: block;
+  }
+
+  .entryBlock {
+    margin:   10px;
+    padding:  10px;
+    display: block;
+    text-align: right;
+  }
+
+  .buttonBlock {
+    margin:   10px;
+    padding:  10px;
+    display: block;
+  }
+
+  .entryField {
+    padding-left:   5px;
+    padding-right:  5px;
+    display: inline-block;
+    font-size: x-large;
+  }
+
+  .loginCredentials {
+    background-color: #f7f7f7;
+    border: 1px solid #9b9b9b;
+    border-radius: 3px;
+    color: #4b4b4b;
+    width: 100%;
+    padding: 5px;
+    font-size: large;
+  }
+
+  div.heading {
+    width: 100%;
+    height: 100%;
+  }
+
+  span.heading {
+    font-weight: bold;
+    font-size: xx-large;
+  }
 }
 
-body
-{
-  margin:   0px;
-  padding:  10px;
-  border:   0px;
-  font-family: Helvetica, Verdana, Arial Narrow, sans-serif;
-  font-size: medium;
-  color: #4b4b4b;
-}
+@media only screen and (max-device-width: 640px) {
+  html {
+    height: 100%;
+    width: 100%;
+    border: 0%;
+  }
 
-div.center
-{
-  text-align: center;
-}
+  body {
+    height: 100%;
+    width: 100%;
+    margin:   0%;
+    padding:  0%;
+    border:   0%;
+    font-family: Helvetica, Verdana, Arial Narrow, sans-serif;
+    font-size: x-large;
+    color: #4b4b4b;
+  }
 
-div.login
-{
-  display: inline-block;
-  margin:   10px;
-  margin-top: 50px;
-  padding:  15px;
-  border:   1px solid #7171f4;
-  background-color: #f1f1fe;
-  border-radius: 5px;
-}
+  div.loginback {
+    height: 100%;
+    background-color: #f1f1fe;
+  }
 
-.loginButton
-{
-  background-color: #3e4695;
-  border: 0px;
-  border-radius: 5px;
-  color: #dddddd;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 100%;
-  padding-top:    3px;
-  padding-bottom: 3px;
-  padding-left:   10px;
-  padding-right:  10px;
-  text-align: center;
-}
+  div.loginwrap {
+    display: block;
+  }
 
-.entryBlock
-{
-  margin:   10px;
-  padding:  10px;
-  display: block;
-}
+  div.login {
+  }
 
-.entryField
-{
-  padding-left:   5px;
-  padding-right:  5px;
-  display: inline-block;
-}
+  .loginButton {
+    background-color: #345678;
+    border: 0%;
+    color: #dddddd;
+    display: inline-block;
+    font-size: 100%;
+    width: 75%;
+    padding-top:    4%;
+    padding-bottom: 4%;
+    text-align: center;
+  }
 
-.loginCredentials
-{
-  background-color: #f7f7f7;
-  border: 1px solid #9b9b9b;
-  border-radius: 3px;
-  color: #4b4b4b;
-  padding: 5px;
+  div.headingBlock {
+    padding-top:   5%;
+  }
+
+  .entryBlock {
+    padding:  4%;
+  }
+
+  .buttonBlock {
+    padding:  4%;
+    text-align: center;
+  }
+
+  .entryField {
+    padding:   1.5%;
+    width: 100%;
+  }
+
+  .loginCredentials {
+    background-color: #f7f7f7;
+    border: 1px solid #9b9b9b;
+    color: #4b4b4b;
+    width: 95%;
+    font-size: x-large;
+    padding: 1.5%;
+  }
+
+  div.heading {
+    width: 94%;
+    padding: 3%;
+    background-color: #345678;
+  }
+
+  span.heading {
+    color: #dddddd;
+    font-weight: bold;
+    font-size: xx-large;
+  }
 }

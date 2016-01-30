@@ -1,24 +1,25 @@
 extends layout
 
-block scripts
-  script(type='text/javascript', src='/javascripts/login.js')
-
 block content
-  .center
-    #login.login
-      .entryBlock
-        .entryField
-          span Username:
-        .entryField
-          input#username.loginCredentials(size='25')
-      .entryBlock
-        .entryField
-          span Password:
-        .entryField
-          input#password.loginCredentials(size='25' type='password')
-      .entryBlock
-        input.loginButton(
-          type='submit'
-          onclick='login()'
-          value='Log in'
-          )
+  .loginback
+    .loginwrap
+      #login.login
+        form(action='/login' method='post')
+          .headingBlock
+            .heading
+              span.heading #{title} login
+          .entryBlock
+            .entryField
+              span Username:
+            .entryField
+              input#username.loginCredentials(name='username')
+          .entryBlock
+            .entryField
+              span Password:
+            .entryField
+              input#password.loginCredentials(name='password' type='password')
+          .buttonBlock
+            input.loginButton(
+              type='submit'
+              value='Log in'
+              )

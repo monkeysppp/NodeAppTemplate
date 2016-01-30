@@ -1,11 +1,26 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('./lib/logging');
+var log = require('./lib/logging').getLogger('app');
+var userDb = require('./lib/userDb');
+var config = require('./lib/config');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 var routes = require('./routes/index');
+
+var dbName = process.env.DATABASE_NAME || config.dbName;
+var dbUser = process.env.DATABASE_USER || config.dbUser;
+var dbPass = process.env.DATABASE_PASS || config.dbPass;
+var dbConnection;
+try {
+  dbConnection = userDb.createDBConnection(dbName, dbUser, dbPass);
+} catch (ex) {
+  log.fatal('Failed to connect to database:' + ex.message);
+  process.exit(1);
+}
 
 var app = express();
 
@@ -20,10 +35,31 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
+
+// Define the 'local' strategy in passport
+passport.use('local', new LocalStrategy(
+  function(username, password, done) {
+    // Here, the done() function is the callback function we passed to passport.authenticate
+    log.debug('About to check for user <' + username + '> in the userDb');
+    userDb.checkPassword(dbConnection, username, password, function(err, user) {
+      if (err) {
+        log.error(err);
+        return done(err);
+      }
+
+      if (!user) {
+        log.error('No such user <' + username + '>');
+        return done(null, false, 'Incorrect username.');
+      }
+
+      log.info('User <' + username + '> validated');
+      return done(null, user);
+    });
+  }
+));
 
 app.use('/', routes);
-
-// app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -55,5 +91,20 @@ app.use(function(err, req, res, next) {
     error: {},
   });
 });
+
+// Catch a shutdown and run cleanup
+process.on('exit', cleanup.bind(null, true));
+process.on('SIGINT', cleanup.bind(null, false));
+process.on('uncaughtException', cleanup.bind(null, false));
+
+function cleanup(clean) {
+  dbConnection.destroy();
+
+  if (clean) {
+    process.exit(0);
+  }
+
+  process.exit(1);
+}
 
 module.exports = app;

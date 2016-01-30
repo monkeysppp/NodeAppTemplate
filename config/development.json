@@ -1,8 +1,9 @@
 {
   "title":"AppTemplate-dev",
   "logging": {
-    "level":"fatal"
+    "level":"debug"
   },
   "httpPort":3000,
-  "httpsPort":3001
+  "httpsPort":3001,
+  "dbName":"node"
 }
