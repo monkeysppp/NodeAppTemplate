@@ -1,5 +1,11 @@
 extends layout
 
 block content
+  .topBanner
+    if (username)
+      span Hi #{username} -&nbsp;
+      a(href='/logout' class='loginLink') logout
+    else
+      a(href='/login' class='loginLink') login
   h1= title
   p Welcome to #{title}

@@ -95,7 +95,10 @@ app.use(function(err, req, res, next) {
 // Catch a shutdown and run cleanup
 process.on('exit', cleanup.bind(null, true));
 process.on('SIGINT', cleanup.bind(null, false));
-process.on('uncaughtException', cleanup.bind(null, false));
+process.on('uncaughtException', function(err) {
+  log.fatal(err);
+  cleanup.bind(null, false);
+});
 
 function cleanup(clean) {
   dbConnection.destroy();
