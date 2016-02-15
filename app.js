@@ -8,21 +8,17 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
+var validator = require('./lib/validate');
 var routes = require('./routes/index');
 
 var dbName = process.env.DATABASE_NAME || config.dbName;
 var dbUser = process.env.DATABASE_USER || config.dbUser;
 var dbPass = process.env.DATABASE_PASS || config.dbPass;
-var dbConnection;
-try {
-  dbConnection = userDb.createDBConnection(dbName, dbUser, dbPass);
-} catch (ex) {
-  log.fatal('Failed to connect to database:' + ex.message);
-  process.exit(1);
-}
+userDb.setDBParameters(dbName, dbUser, dbPass);
 
 var app = express();
+
+// TODO - helmet for header protection
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,7 +38,7 @@ passport.use('local', new LocalStrategy(
   function(username, password, done) {
     // Here, the done() function is the callback function we passed to passport.authenticate
     log.debug('About to check for user <' + username + '> in the userDb');
-    userDb.checkPassword(dbConnection, username, password, function(err, user) {
+    userDb.checkPassword(username, password, function(err, user) {
       if (err) {
         log.error(err);
         return done(err);
@@ -59,11 +55,14 @@ passport.use('local', new LocalStrategy(
   }
 ));
 
+app.use(validator.setExcludeUserChecks(['/', '/login', '/logout']));
+app.use(validator.setExcludeRequestChecks(['/', '/login', '/logout', '/apiui']));
 app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  log.error('Routing to 404: ' + req.originalUrl);
+  var err = new Error('Not Found: ' + req.originalUrl);
   err.status = 404;
   next(err);
 });
@@ -74,6 +73,7 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
+    log.error('Internal error: ' + err.message);
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -85,6 +85,7 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+  log.error('Internal error: ' + err.message);
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
@@ -101,8 +102,6 @@ process.on('uncaughtException', function(err) {
 });
 
 function cleanup(clean) {
-  dbConnection.destroy();
-
   if (clean) {
     process.exit(0);
   }

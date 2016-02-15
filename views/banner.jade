@@ -1,0 +1,11 @@
+extends layout
+
+block fullpage
+  .topBanner
+    if (username)
+      span Hi #{username} -&nbsp;
+      a(href='/logout' class='loginLink') logout
+    else
+      a(href='/login' class='loginLink') login
+  .mainBody
+    block content

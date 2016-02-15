@@ -4,6 +4,8 @@ var router = express.Router();
 var passport = require('passport');
 var config = require('../lib/config');
 var validator = require('../lib/validate');
+var uuid = require('uuid4');
+var apis = require('../api/index');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -32,17 +34,11 @@ router.post('/login', function(req, res, next) {
     var token = validator.signToken({ username: user.username });
     log.info('User <' + user.username + '> logged in');
 
-    // TODO set an expiry time on the jwt token.
+    var csrfToken = uuid();
     res.cookie('jwt', token, { httpOnly: true, secure: true });
+    res.cookie('X-CSRF-Token', csrfToken);
     res.redirect('/');
-
-    // TODO req.login() ?
   })(req, res, next);
-
-  // passport.authenticate('local', {
-  //   successRedirect: '/',
-  //   failureRedirect: '/login',
-  // })
 });
 
 router.get('/logout', function(req, res) {
@@ -53,6 +49,7 @@ router.get('/logout', function(req, res) {
       var token = validator.validateToken(req.cookies.jwt);
       log.info('User <' + token.username + '> logged out');
       res.clearCookie('jwt');
+      res.clearCookie('X-CSRF-Token');
     } catch (err) {
       log.error('Invalid JWT token');
     }
@@ -61,6 +58,16 @@ router.get('/logout', function(req, res) {
   }
 
   res.redirect('/');
+});
+
+router.post('/apis/add', function(req, res, next) {
+  log.info('Call to POST /apis/add');
+  apis.add(req, res, next);
+});
+
+router.get('/apiui', function(req, res, next) {
+  log.info('Call to GET /api');
+  res.render('api', { username: validator.getUsername(req) });
 });
 
 module.exports = router;

@@ -6,7 +6,6 @@
 var userDb = require('../lib/userDb.js');
 var readline = require('readline');
 var prompt = require('prompt');
-var uuid = require('uuid4');
 
 prompt.message = '';
 prompt.delimiter = '';
@@ -70,8 +69,8 @@ function main() {
         process.exit(1);
       }
 
-      var dbConnection = userDb.createDBConnection(databaseName, databaseUser, databasePwd);
-      userDb.saltHashAndStore(dbConnection, username, pwd, function(err) {
+      userDb.setDBParameters(databaseName, databaseUser, databasePwd);
+      userDb.saltHashAndStore(username, pwd, function(err) {
         dbConnection.destroy();
 
         if (err) {

@@ -1,0 +1,33 @@
+extends banner
+
+block scripts
+  script(src='js/apis.js')
+  script.
+    function loadCode() {
+      apisAttachEvents();
+    }
+    window.onload = loadCode;
+
+block content
+  h1 Adder
+  span Enter two numbers
+  div
+    .entryField
+      span A:
+    .entryField
+      input#apis_addNumberA.fieldInput(name='numberA')
+  div
+    .entryField
+      span B:
+    .entryField
+      input#apis_addNumberB.fieldInput(name='numberB')
+  div
+    .buttonBlock
+      input#apis_addSubmit.submitButton(
+        type='submit'
+        value='Add numbers'
+        )
+  div
+    .entryField
+      span Answer:
+      span#apis_addAnswer

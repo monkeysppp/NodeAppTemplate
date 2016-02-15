@@ -1,9 +1,14 @@
 {
   "name": "AppTemplate",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test":"npm run lint && npm run style && npm run test:unit:coverage",
+    "test:unit":"mocha test test/lib",
+    "test:unit:coverage":"istanbul cover node_modules/mocha/bin/_mocha -- test/unit test/unit/controllers",
+    "lint":"jshint .",
+    "style":"jscs ."
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -20,5 +25,18 @@
     "prompt": "latest",
     "serve-favicon": "~2.3.0",
     "uuid4": "^1.0.0"
+  },
+  "devDependencies":{
+    "chai":"latest",
+    "istanbul":"latest",
+    "jscs":"latest",
+    "jshint":"latest",
+    "mocha":"latest",
+    "node-mocks-http":"latest",
+    "sinon":"latest"
+  },
+  "jscsConfig":{
+    "preset": "airbnb",
+    "excludeFiles":["node_modules","coverage","res"]
   }
 }
