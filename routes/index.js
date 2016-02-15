@@ -9,6 +9,7 @@ var apis = require('../api/index');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  log.info('Call to GET /');
   res.render('index', { title: config.title, username: validator.getUsername(req) });
 });
 
@@ -66,7 +67,7 @@ router.post('/apis/add', function(req, res, next) {
 });
 
 router.get('/apiui', function(req, res, next) {
-  log.info('Call to GET /api');
+  log.info('Call to GET /apiui');
   res.render('api', { username: validator.getUsername(req) });
 });
 
