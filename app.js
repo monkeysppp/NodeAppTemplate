@@ -55,8 +55,14 @@ passport.use('local', new LocalStrategy(
   }
 ));
 
-app.use(validator.setExcludeUserChecks(['/', '/login', '/logout']));
-app.use(validator.setExcludeRequestChecks(['/', '/login', '/logout', '/apiui']));
+app.use(function(req, res, next) {
+  log.info('Call to ' + req.method + ' ' + req.originalUrl);
+  next();
+});
+
+app.use(validator.excludeUserChecks(['/', '/login', '/logout']));
+app.use(validator.excludeRequestChecks(['/', '/login', '/logout', '/apiui']));
+app.use(validator.validationErrorRedirect);
 app.use('/', routes);
 
 // catch 404 and forward to error handler
