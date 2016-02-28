@@ -2,10 +2,13 @@ extends layout
 
 block fullpage
   .topBanner
-    if (username)
-      span Hi #{username} -&nbsp;
-      a(href='/logout' class='loginLink') logout
-    else
-      a(href='/login' class='loginLink') login
+    .topBannerLeft
+      a(href='/' class='flatLink') Home
+    .topBannerRight
+      if (username)
+        span Hi #{username} -&nbsp;
+        a(href='/logout' class='flatLink') logout
+      else
+        a(href='/login' class='flatLink') login
   .mainBody
     block content

@@ -1,7 +1,13 @@
 extends banner
 
 block content
-  h1= title
-  p Welcome to #{title}
   if (username)
-    a(href='/apiui') api exerciser
+    center
+      h1= title
+    if (username)
+      a(href='/apiui') api exerciser
+  else
+    center
+      h1= title
+    center
+      p Welcome to #{title}

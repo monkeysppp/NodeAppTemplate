@@ -9,18 +9,15 @@ var apis = require('../api/index');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  log.info('Call to GET /');
   res.render('index', { title: config.title, username: validator.getUsername(req) });
 });
 
 router.get('/login', function(req, res, next) {
-  log.info('Call to GET /login');
   res.render('login', { title: config.title });
 });
 
 // Authenticate using the 'local' strategy
 router.post('/login', function(req, res, next) {
-  log.info('Call to POST /login');
   passport.authenticate('local', function(err, user, info) {
     if (err) {
       return next(err);
@@ -43,8 +40,6 @@ router.post('/login', function(req, res, next) {
 });
 
 router.get('/logout', function(req, res) {
-  log.info('Call to GET /logout');
-
   if (validator.isJwtPresent(req)) {
     try {
       var token = validator.validateToken(req.cookies.jwt);
@@ -62,12 +57,10 @@ router.get('/logout', function(req, res) {
 });
 
 router.post('/apis/add', function(req, res, next) {
-  log.info('Call to POST /apis/add');
   apis.add(req, res, next);
 });
 
 router.get('/apiui', function(req, res, next) {
-  log.info('Call to GET /apiui');
   res.render('api', { username: validator.getUsername(req) });
 });
 
