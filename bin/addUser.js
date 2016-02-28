@@ -2,13 +2,13 @@
  * This talks to a MySQL database and adds a new user to the user database.
  * The password is salted and hashed.
  **/
+ 'use strict';
 
 var userDb = require('../lib/userDb.js');
-var readline = require('readline');
-var prompt = require('prompt');
+var addPrompt = require('prompt');
 
-prompt.message = '';
-prompt.delimiter = '';
+addPrompt.message = '';
+addPrompt.delimiter = '';
 
 function usage() {
   console.log('');
@@ -28,7 +28,7 @@ function main() {
   var databaseUser = process.argv[3];
   var username     = process.argv[4];
 
-  var promptSchema = {
+  var addPromptSchema = {
     properties: {
       dbPwd: {
         message: 'Enter DB password: ',
@@ -48,8 +48,8 @@ function main() {
     },
   };
 
-  prompt.start();
-  prompt.get(promptSchema,
+  addPrompt.start();
+  addPrompt.get(addPromptSchema,
     function(err, result) {
       if (err) {
         console.log('Error reading passwords...');
@@ -71,8 +71,6 @@ function main() {
 
       userDb.setDBParameters(databaseName, databaseUser, databasePwd);
       userDb.saltHashAndStore(username, pwd, function(err) {
-        dbConnection.destroy();
-
         if (err) {
           console.log(err);
           process.exit(1);

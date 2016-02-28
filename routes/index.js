@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var log = require('../lib/logging').getLogger('routes/index');
 var router = express.Router();
@@ -8,17 +10,17 @@ var uuid = require('uuid4');
 var apis = require('../api/index');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   res.render('index', { title: config.title, username: validator.getUsername(req) });
 });
 
-router.get('/login', function(req, res, next) {
+router.get('/login', function(req, res) {
   res.render('login', { title: config.title });
 });
 
 // Authenticate using the 'local' strategy
 router.post('/login', function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
+  passport.authenticate('local', function(err, user) {
     if (err) {
       return next(err);
     }
@@ -29,7 +31,7 @@ router.post('/login', function(req, res, next) {
 
     // User has authenticated correctly. Create a JWT token
     log.debug('User <' + user.username + '> authenticated okay');
-    var token = validator.signToken({ username: user.username });
+    var token = validator.signToken({username: user.username});
     log.info('User <' + user.username + '> logged in');
 
     var csrfToken = uuid();
@@ -60,7 +62,7 @@ router.post('/apis/add', function(req, res, next) {
   apis.add(req, res, next);
 });
 
-router.get('/apiui', function(req, res, next) {
+router.get('/apiui', function(req, res) {
   res.render('api', { username: validator.getUsername(req) });
 });
 

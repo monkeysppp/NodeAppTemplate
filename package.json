@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "test":"npm run lint && npm run style && npm run test:unit:coverage",
     "test:unit":"mocha test test/lib",
-    "test:unit:coverage":"istanbul cover node_modules/mocha/bin/_mocha -- test/unit test/unit/controllers",
+    "test:unit:coverage":"istanbul cover node_modules/mocha/bin/_mocha -- test test/lib && istanbul report html",
     "lint":"jshint .",
     "style":"jscs ."
   },
@@ -38,6 +38,6 @@
   },
   "jscsConfig":{
     "preset": "airbnb",
-    "excludeFiles":["node_modules","coverage","res"]
+    "excludeFiles":["node_modules","coverage"]
   }
 }

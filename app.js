@@ -1,8 +1,9 @@
+'use strict';
+
 var bodyParser = require('body-parser');
 var config = require('./lib/config');
 var cookieParser = require('cookie-parser');
 var express = require('express');
-var favicon = require('serve-favicon');
 var helmet = require('helmet');
 var LocalStrategy = require('passport-local').Strategy;
 var log = require('./lib/logging').getLogger('app');
@@ -16,6 +17,14 @@ var dbName = process.env.DATABASE_NAME || config.dbName;
 var dbUser = process.env.DATABASE_USER || config.dbUser;
 var dbPass = process.env.DATABASE_PASS || config.dbPass;
 userDb.setDBParameters(dbName, dbUser, dbPass);
+
+var jwtSecret = config.jwtSecret;
+if (!jwtSecret) {
+  log.error('Using an insecure secret for JWT tokens.  You will want to change this!');
+  jwtSecret = 'changeThisSecret';
+}
+
+validator.setSecret(jwtSecret);
 
 var app = express();
 
@@ -32,7 +41,7 @@ app.use(helmet.csp({
 }));
 app.use(helmet.xssFilter());
 app.use(helmet.frameguard());
-app.use(helmet.hsts({ maxAge:7776000000 }));
+app.use(helmet.hsts({maxAge:7776000000}));
 app.use(helmet.hidePoweredBy());
 app.use(helmet.ieNoOpen());
 app.use(helmet.noSniff());
@@ -48,7 +57,7 @@ app.use(function(req, res, next) {
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 // app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
@@ -93,7 +102,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+  app.use(function(err, req, res) {
     log.error('Internal error: ' + err.message);
     res.status(err.status || 500);
     res.render('error', {
@@ -105,7 +114,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   log.error('Internal error: ' + err.message);
   res.status(err.status || 500);
   res.render('error', {
