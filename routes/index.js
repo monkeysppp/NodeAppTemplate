@@ -31,13 +31,20 @@ router.post('/login', function(req, res, next) {
 
     // User has authenticated correctly. Create a JWT token
     log.debug('User <' + user.username + '> authenticated okay');
-    var token = validator.signToken({username: user.username});
+    var token = validator.signToken({ username: user.username });
     log.info('User <' + user.username + '> logged in');
 
     var csrfToken = uuid();
     res.cookie('jwt', token, { httpOnly: true, secure: true });
-    res.cookie('X-CSRF-Token', csrfToken);
-    res.redirect('/');
+    res.cookie('X-CSRF-Token', csrfToken, { secure: true });
+
+    // res.cookie('nextUrl', req.originalUrl, { httpOnly: true, secure: true });
+    if (req.cookies && req.cookies.nextUrl) {
+      res.clearCookie('nextUrl');
+      res.redirect(req.cookies.nextUrl);
+    } else {
+      res.redirect('/');
+    }
   })(req, res, next);
 });
 

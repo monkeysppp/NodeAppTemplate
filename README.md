@@ -27,7 +27,7 @@ npm start
 ```
 
 ### Developed with help from...
+ - http://www.html5rocks.com/en/tutorials/security/content-security-policy/
  - http://stackoverflow.com/questions/20228572/passport-local-with-node-jwt-simple
  - https://orchestrate.io/blog/2014/06/26/build-user-authentication-with-node-js-express-passport-and-orchestrate/
  - http://toon.io/on-passportjs-specific-use-cases/
- 

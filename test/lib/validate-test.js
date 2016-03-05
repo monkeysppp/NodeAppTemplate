@@ -332,10 +332,15 @@ describe('validation', function() {
       var req = httpMock.createRequest({});
       var res = httpMock.createResponse({});
       req.res = res;
+      var nextErr;
+      var next = function(err) {
+        nextErr = err;
+      };
 
-      validate.validationErrorRedirect(1, req, res);
+      validate.validationErrorRedirect('someError', req, res, next);
       expect(res.statusCode).to.equal(302);
       expect(res._getRedirectUrl()).to.equal('/login');
+      expect(nextErr).to.equal('someError');
     });
   });
 
