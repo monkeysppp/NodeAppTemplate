@@ -77,6 +77,11 @@
     text-align: center;
   }
 
+  .loginButton:active {
+    background-color: #547698;
+    color: #eeeeee;
+  }
+
   .submitButton {
     background-color: #345678;
     border: 0px;
@@ -90,6 +95,11 @@
     padding-left:   17px;
     padding-right:  17px;
     text-align: center;
+  }
+
+  .submitButton:active {
+    background-color: #547698;
+    color: #eeeeee;
   }
 
   .headingBlock {
@@ -220,6 +230,11 @@
     text-align: center;
   }
 
+  .loginButton:active {
+    background-color: #547698;
+    color: #eeeeee;
+  }
+
   .submitButton {
     background-color: #345678;
     border: 0%;
@@ -230,6 +245,11 @@
     padding-top:    4%;
     padding-bottom: 4%;
     text-align: center;
+  }
+
+  .submitButton:active {
+    background-color: #547698;
+    color: #eeeeee;
   }
 
   div.headingBlock {
