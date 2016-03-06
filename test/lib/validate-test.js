@@ -12,8 +12,11 @@ var uuid = require('uuid4');
 
 describe('validation', function() {
   var secret = 'ghijkl';
+  var issuer = 'testRunner';
+
   before(function() {
     validate.setSecret(secret);
+    validate.setIssuer(issuer);
   });
 
   describe('#signToken', function() {

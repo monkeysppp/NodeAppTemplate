@@ -20,11 +20,19 @@ userDb.setDBParameters(dbName, dbUser, dbPass);
 
 var jwtSecret = config.jwtSecret;
 if (!jwtSecret) {
-  log.error('Using an insecure secret for JWT tokens.  You will want to change this!');
+  log.error('Using an insecure secret for JWT.  You will want to change this!');
   jwtSecret = 'changeThisSecret';
 }
 
 validator.setSecret(jwtSecret);
+
+var jwtIssuer = config.jwtIssuer;
+if (!jwtIssuer) {
+  log.error('Using JWT without defining an issuer.  You will want to change this!');
+  jwtIssuer = 'changeThisIssuer';
+}
+
+validator.setIssuer(jwtIssuer);
 
 var app = express();
 
@@ -50,6 +58,11 @@ app.use(helmet.dnsPrefetchControl());
 
 app.use(function(req, res, next) {
   log.info('Call to ' + req.method + ' ' + req.originalUrl);
+
+  if (req.headers) {
+    log.debug('Headers: ' + JSON.stringify(req.headers));
+  }
+
   next();
 });
 
@@ -88,6 +101,8 @@ app.use(validator.excludeUserChecks(['/', '/login', '/logout']));
 app.use(validator.excludeRequestChecks(['/', '/login', '/logout', '/apiui']));
 app.use(validator.validationErrorRedirect);
 app.use('/', routes);
+
+// TODO - A validation failure during login should stay on login with an error.
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

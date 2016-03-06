@@ -53,8 +53,6 @@ router.get('/logout', function(req, res) {
     try {
       var token = validator.validateToken(req.cookies.jwt);
       log.info('User <' + token.username + '> logged out');
-      res.clearCookie('jwt');
-      res.clearCookie('X-CSRF-Token');
     } catch (err) {
       log.error('Invalid JWT token');
     }
@@ -62,6 +60,9 @@ router.get('/logout', function(req, res) {
     log.info('logout called, but user doesn\'t appear to be logged in');
   }
 
+  res.clearCookie('jwt');
+  res.clearCookie('X-CSRF-Token');
+  res.clearCookie('nextUrl');
   res.redirect('/');
 });
 
