@@ -6,7 +6,6 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('AppTemplate:server');
 var http = require('http');
 var https = require('https');
 var fs = require('fs');
@@ -136,13 +135,11 @@ function onErrorHttp(error) {
 function onListeningHttp() {
   var addr = httpServer.address();
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-  debug('Listening on ' + bind);
   log.info('Listening on ' + bind);
 }
 
 function onListeningHttps() {
   var addr = httpsServer.address();
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-  debug('Listening on ' + bind);
   log.info('Listening on ' + bind);
 }

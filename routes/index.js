@@ -5,8 +5,9 @@ var log = require('../lib/logging').getLogger('routes/index');
 var router = express.Router();
 var passport = require('passport');
 var config = require('../lib/config');
-var validator = require('../lib/validate');
 var uuid = require('uuid4');
+var validator = require('../lib/validate');
+
 var apis = require('../api/index');
 
 /* GET home page. */
